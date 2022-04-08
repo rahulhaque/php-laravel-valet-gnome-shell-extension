@@ -1,0 +1,12 @@
+{
+  "name": "PHP Laravel Valet",
+  "description": "A PHP Laravel Valet status indicator and manager.",
+  "uuid": "php-laravel-valet@rahulhaque",
+  "shell-version": [
+    "40",
+    "41",
+    "42"
+  ],
+  "version": 2,
+  "url": "https://github.com/rahulhaque/php-laravel-valet-gnome-shell-extension"
+}
