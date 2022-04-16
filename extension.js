@@ -8,21 +8,24 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
-const Valet = GObject.registerClass(
-    class Valet extends PanelMenu.Button {
+const PhpLaravelValet = GObject.registerClass(
+    class PhpLaravelValet extends PanelMenu.Button {
         _init() {
             super._init(0.0, null, false);
+
+            this._settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.php-laravel-valet');
 
             this._indicatorText = new St.Label({text: 'Loading...', y_align: Clutter.ActorAlign.CENTER});
             this.add_actor(this._indicatorText);
 
-            this.menu.connect('open-state-changed', (menu, open) => {
-                if (open) this._refreshMenu()
-            });
+            // Initialising the menu with demo item
+            this.menu.addMenuItem(new PopupMenu.PopupMenuItem('Loading...'));
 
             this._refreshIndicator();
 
-            this._refreshMenu();
+            this.menu.connect('open-state-changed', (menu, open) => {
+                if (open) this._refreshMenu()
+            });
         }
 
         _refreshIndicator() {
@@ -76,9 +79,10 @@ const Valet = GObject.registerClass(
         }
 
         _switchPhp(version) {
+            const terminal = this._settings.get_string('default-shell').split(' ');
             try {
                 let proc = Gio.Subprocess.new(
-                    ['x-terminal-emulator', '-e', 'valet', 'use', version],
+                    terminal.concat(['valet', 'use', version]),
                     Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE
                 );
 
@@ -92,14 +96,14 @@ const Valet = GObject.registerClass(
     }
 )
 
-let valetIndicator = null;
+let phpLaravelValet = null;
 
 function enable() {
-    valetIndicator = new Valet();
-    Main.panel.addToStatusArea('valet', valetIndicator);
+    phpLaravelValet = new PhpLaravelValet();
+    Main.panel.addToStatusArea('php-laravel-valet', phpLaravelValet);
 }
 
 function disable() {
-    valetIndicator.destroy();
-    valetIndicator = null;
+    phpLaravelValet.destroy();
+    phpLaravelValet = null;
 }

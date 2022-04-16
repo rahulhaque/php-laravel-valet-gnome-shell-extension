@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.php-laravel-valet" path="/org/gnome/shell/extensions/php-laravel-valet/">
+        <key type="s" name="position-in-panel">
+            <default>'right'</default>
+            <summary>Position in Panel</summary>
+            <description>Position in Panel ('left', 'center', 'right')</description>
+        </key>
+        <key type="i" name="panel-box-index">
+            <default>0</default>
+            <summary>Index in panel box</summary>
+            <description>Index within the selected panel box (0: first, 1: second, ..., -1: last)</description>
+        </key>
+        <key type="s" name="default-shell">
+            <default>'x-terminal-emulator -e'</default>
+            <summary>Default shell to execute extension commands</summary>
+            <description>Default shell to execute extension commands</description>
+        </key>
+    </schema>
+</schemalist>
