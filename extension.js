@@ -68,7 +68,7 @@ const PhpLaravelValet = GObject.registerClass(
             this.menu.addMenuItem(phpSubMenu);
 
             // valet start/restart menu
-            const valetRestart = new PopupMenu.PopupMenuItem('Valet start');
+            const valetRestart = new PopupMenu.PopupMenuItem('Valet start/restart');
             valetRestart.connect('activate', () => Utils.valetRestart());
             this.menu.addMenuItem(valetRestart);
 
