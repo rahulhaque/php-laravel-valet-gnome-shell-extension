@@ -1,13 +1,7 @@
-'use strict';
+import GLib from 'gi://GLib';
+import Bytes from 'gi://GLib/Bytes';
 
-const Bytes = imports.byteArray;
-const GLib = imports.gi.GLib;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const _settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.php-laravel-valet');
-
-function safeSpawn(cmd) {
+export function safeSpawn(cmd) {
     try {
         return GLib.spawn_command_line_sync(cmd);
     } catch (e) {
@@ -15,33 +9,33 @@ function safeSpawn(cmd) {
     }
 }
 
-function shellSpawn(cmd) {
-    const terminal = _settings.get_string('default-shell');
+export function shellSpawn(cmd) {
+    const terminal = 'x-terminal-emulator -e';
     GLib.spawn_command_line_async(`${terminal} ${cmd}`);
 }
 
-function phpVersion() {
+export function phpVersion() {
     const res = safeSpawn('/bin/bash -c "php -v | grep -Po \'PHP\\s+\\d+.\\d+(?:(.\\d+))?\'"');
     if (res[3] == 0) return Bytes.toString(res[1]).replace(/\n$/, '');
     return false;
 }
 
-function phpList() {
+export function phpList() {
     const res = safeSpawn('ls /etc/php');
     if (res[3] == 0) return Bytes.toString(res[1]).split('\n').filter(item => !!item).reverse();
     return false;
 }
 
-function valetStatus() {
+export function valetStatus() {
     const res = safeSpawn('/bin/bash -c "valet --version && valet status"');
     if (res[3] == 0) return Bytes.toString(res[1]).split('\n').filter(item => !!item);
     return false;
 }
 
-function valetRestart() {
+export function valetRestart() {
     shellSpawn('valet restart');
 }
 
-function valetStop() {
+export function valetStop() {
     shellSpawn('valet stop');
 }
