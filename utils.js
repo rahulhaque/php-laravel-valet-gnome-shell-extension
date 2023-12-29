@@ -1,5 +1,4 @@
 import GLib from 'gi://GLib';
-import Bytes from 'gi://GLib/Bytes';
 
 export function safeSpawn(cmd) {
     try {
@@ -16,19 +15,19 @@ export function shellSpawn(cmd) {
 
 export function phpVersion() {
     const res = safeSpawn('/bin/bash -c "php -v | grep -Po \'PHP\\s+\\d+.\\d+(?:(.\\d+))?\'"');
-    if (res[3] == 0) return Bytes.toString(res[1]).replace(/\n$/, '');
+    if (res[3] == 0) return String.fromCharCode(...res[1]).replace(/\n$/, '');
     return false;
 }
 
 export function phpList() {
     const res = safeSpawn('ls /etc/php');
-    if (res[3] == 0) return Bytes.toString(res[1]).split('\n').filter(item => !!item).reverse();
+    if (res[3] == 0) return String.fromCharCode(...res[1]).split('\n').filter(item => !!item).reverse();
     return false;
 }
 
 export function valetStatus() {
     const res = safeSpawn('/bin/bash -c "valet --version && valet status"');
-    if (res[3] == 0) return Bytes.toString(res[1]).split('\n').filter(item => !!item);
+    if (res[3] == 0) return String.fromCharCode(...res[1]).split('\n').filter(item => !!item);
     return false;
 }
 
