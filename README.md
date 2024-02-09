@@ -6,7 +6,7 @@ A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) 
 
 ## Supports
 
-- Tested on Pop!_OS 21.10 and GNOME Shell V40
+- Tested on GNOME Shell Version 40, 41, 42, 43, 44, 45
 
 ## Prerequisite
 
