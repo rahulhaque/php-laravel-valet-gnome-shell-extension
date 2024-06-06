@@ -20,7 +20,7 @@ const PhpLaravelValet = GObject.registerClass(
             this._settings.connect('changed', () => this._refreshIndicator());
 
             this._indicatorText = new St.Label({ text: _('Loading...'), y_align: Clutter.ActorAlign.CENTER });
-            this.add_actor(this._indicatorText);
+            this.add_child(this._indicatorText);
 
             // initializing the menu with demo item
             this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('Loading...')));
