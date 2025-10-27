@@ -2,7 +2,8 @@
 
 A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) for GNOME Shell.
 
-![Screenshot](./screenshot.png)
+![Screenshot](./screenshot.png)  
+![Screenshot2](./screenshot2.png)
 
 ## Supports
 

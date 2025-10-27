@@ -53,76 +53,21 @@ const PhpLaravelValet = GObject.registerClass(
         _refreshMenu() {
             this.menu.removeAll()
 
-            // valet status menu
-            const valetStatus = Utils.valetStatus()
-
-            if (valetStatus.length > 0) {
-                valetStatus.forEach(item => {
-                    this.menu.addMenuItem(new PopupMenu.PopupMenuItem(item.replace(/\.\.\./g, '')))
-                })
-            } else {
-                this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('Valet not found')))
+            if (this.menuSection1() && (this.shouldShowMenuSection3() || this.shouldShowMenuSection4())) {
+                this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             }
 
-            // menu separator
-            this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem())
-
-            // switch php sub menu
-            const phpSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Switch PHP'))
-            const phpList = Utils.phpList()
-
-            if (phpList.length > 0) {
-                phpList.forEach(item => {
-                    const subMenu = new PopupMenu.PopupMenuItem(_('Switch to ') + item)
-                    subMenu.connect('activate', () => this._switchPhp(item))
-                    phpSubMenu.menu.addMenuItem(subMenu)
-                })
-            } else {
-                phpSubMenu.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('PHP not found')))
-            }
-            this.menu.addMenuItem(phpSubMenu)
-
-            // valet start/restart menu
-            const valetRestart = new PopupMenu.PopupMenuItem(_('Valet start/restart'))
-            valetRestart.connect('activate', () => Utils.valetRestart())
-            this.menu.addMenuItem(valetRestart)
-
-            // valet stop menu
-            const valetStop = new PopupMenu.PopupMenuItem(_('Valet stop'))
-            valetStop.connect('activate', () => Utils.valetStop())
-            this.menu.addMenuItem(valetStop)
-
-            if (this._settings.get_boolean('show-links')) {
-                const valetLinks = Utils.valetList()
-
-                if (valetLinks.length > 0) {
-                    // menu separator
-                    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem())
-
-                    const linksSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Valet Sites'))
-
-                    valetLinks.forEach(site => {
-                        const label = site.site + ' (PHP ' + site.php + ')'
-                        const siteItem = new PopupMenu.PopupMenuItem(label)
-                        siteItem.connect('activate', () => Gio.AppInfo.launch_default_for_uri(site.url, null))
-
-                        linksSubMenu.menu.addMenuItem(siteItem)
-                    })
-
-                    // Add submenu to main menu
-                    this.menu.addMenuItem(linksSubMenu)
-                }
+            if (this.menuSection2() && (this.shouldShowMenuSection3() || this.shouldShowMenuSection4())) {
+                this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             }
 
-            if (this._settings.get_boolean('show-settings')) {
-                // menu separator
-                this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem())
+            this.menuSection3()
 
-                // settings menu
-                const settings = new PopupMenu.PopupMenuItem(_('Settings'))
-                settings.connect('activate', () => this._extension.openPreferences())
-                this.menu.addMenuItem(settings)
+            if (this.shouldShowMenuSection4()) {
+                this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             }
+
+            this.menuSection4()
         }
 
         _switchPhp(version) {
@@ -141,6 +86,126 @@ const PhpLaravelValet = GObject.registerClass(
             } catch (e) {
                 logError(e)
             }
+        }
+
+        /**
+         * @return {boolean}
+         */
+        menuSection1() {
+            if (! this._settings.get_boolean('show-status')) {
+                return false
+            }
+
+            const valetStatus = Utils.valetStatus()
+
+            if (valetStatus.length > 0) {
+                valetStatus.forEach(item => {
+                    this.menu.addMenuItem(new PopupMenu.PopupMenuItem(item.replace(/\.\.\./g, '')))
+                })
+            } else {
+                this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('Valet not found')))
+            }
+
+            return true
+        }
+
+        /**
+         * @return {boolean}
+         */
+        menuSection2() {
+            let state = false
+
+            // switch php sub menu
+            if (this._settings.get_boolean('show-php-switcher')) {
+                const phpSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Switch PHP'))
+                const phpList = Utils.phpList()
+
+                if (phpList.length > 0) {
+                    phpList.forEach(item => {
+                        const subMenu = new PopupMenu.PopupMenuItem(_('Switch to ') + item)
+                        subMenu.connect('activate', () => this._switchPhp(item))
+                        phpSubMenu.menu.addMenuItem(subMenu)
+                    })
+                } else {
+                    phpSubMenu.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('PHP not found')))
+                }
+                this.menu.addMenuItem(phpSubMenu)
+
+                state = true
+            }
+
+            // valet start/restart menu
+            if (this._settings.get_boolean('show-valet-restart')) {
+                const valetRestart = new PopupMenu.PopupMenuItem(_('Valet start/restart'))
+                valetRestart.connect('activate', () => Utils.valetRestart())
+                this.menu.addMenuItem(valetRestart)
+
+                state = true
+            }
+
+            // valet stop menu
+            if (this._settings.get_boolean('show-valet-stop')) {
+                const valetStop = new PopupMenu.PopupMenuItem(_('Valet stop'))
+                valetStop.connect('activate', () => Utils.valetStop())
+                this.menu.addMenuItem(valetStop)
+
+                state = true
+            }
+
+            return state
+        }
+
+        menuSection3()
+        {
+            if (! this.shouldShowMenuSection3()) {
+                return
+            }
+
+            const valetLinks = Utils.valetList()
+
+            if (valetLinks.length < 1) {
+                this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_('No Links Found')))
+
+                return
+            }
+
+            const linksSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Valet Sites'))
+
+            valetLinks.forEach(site => {
+                const label = site.site + ' (PHP ' + site.php + ')'
+                const siteItem = new PopupMenu.PopupMenuItem(label)
+                siteItem.connect('activate', () => Gio.AppInfo.launch_default_for_uri(site.url, null))
+
+                linksSubMenu.menu.addMenuItem(siteItem)
+            })
+
+            // Add submenu to main menu
+            this.menu.addMenuItem(linksSubMenu)
+        }
+
+        menuSection4() {
+            if (! this.shouldShowMenuSection4()) {
+                return
+            }
+
+            // settings menu
+            const settings = new PopupMenu.PopupMenuItem(_('Settings'))
+            settings.connect('activate', () => this._extension.openPreferences())
+            this.menu.addMenuItem(settings)
+        }
+
+        /**
+         * @return {boolean}
+         */
+        shouldShowMenuSection3() {
+            return this._settings.get_boolean('show-links')
+        }
+
+        /**
+         * @return {boolean}
+         */
+        shouldShowMenuSection4() {
+            return this._settings.get_boolean('show-settings')
         }
     }
 )
