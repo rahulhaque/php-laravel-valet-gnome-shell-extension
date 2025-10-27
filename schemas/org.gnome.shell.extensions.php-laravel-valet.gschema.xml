@@ -15,6 +15,11 @@
             <default>true</default>
             <summary>Show the settings button</summary>
             <description>Whether to show the settings button as last entry in the extensions list.</description>
-          </key>
+        </key>
+        <key type="b" name="shorten-php-version">
+            <default>false</default>
+            <summary>Shorten PHP Version in Top Bar</summary>
+            <description>Whether shorten the displayed PHP version in the  Ubuntu top bar</description>
+        </key>
     </schema>
 </schemalist>

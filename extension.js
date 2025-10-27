@@ -17,7 +17,10 @@ const PhpLaravelValet = GObject.registerClass(
 
             this._extension = ext;
             this._settings = ext.getSettings();
-            this._settings.connect('changed', () => this._refreshIndicator());
+            this._settings.connect('changed', () => {
+                this._refreshIndicator()
+                this._refreshMenu()
+            });
 
             this._indicatorText = new St.Label({ text: _('Loading...'), y_align: Clutter.ActorAlign.CENTER });
             this.add_child(this._indicatorText);
@@ -35,7 +38,9 @@ const PhpLaravelValet = GObject.registerClass(
         _refreshIndicator() {
             const phpVersion = Utils.phpVersion();
             if (phpVersion) {
-                this._indicatorText.set_text(phpVersion);
+                this._settings.get_boolean('shorten-php-version') ?
+                    this._indicatorText.set_text(phpVersion.replace(/^(\D*\d+\.\d+).*/, '$1')) :
+                    this._indicatorText.set_text(phpVersion)
             } else {
                 this._indicatorText.set_text(_('PHP not found'));
             }
