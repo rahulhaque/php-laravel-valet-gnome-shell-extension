@@ -86,6 +86,28 @@ const PhpLaravelValet = GObject.registerClass(
             valetStop.connect('activate', () => Utils.valetStop());
             this.menu.addMenuItem(valetStop);
 
+            if (this._settings.get_boolean('show-links')) {
+                const valetLinks = Utils.valetList();
+                log(`Valet links → ${JSON.stringify(valetLinks)}`);
+
+                if (valetLinks.length > 0) {
+                    // menu separator
+                    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+                    const linksSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Valet Sites'));
+
+                    valetLinks.forEach(site => {
+                        const label = site.site + ' (PHP ' + site.php + ')';
+                        const siteItem = new PopupMenu.PopupMenuItem(label);
+                        siteItem.connect('activate', () => Gio.AppInfo.launch_default_for_uri(site.url, null));
+
+                        linksSubMenu.menu.addMenuItem(siteItem);
+                    });
+
+                    // Add submenu to main menu
+                    this.menu.addMenuItem(linksSubMenu);
+                }
+            }
 
             if (this._settings.get_boolean('show-settings')) {
                 // menu separator

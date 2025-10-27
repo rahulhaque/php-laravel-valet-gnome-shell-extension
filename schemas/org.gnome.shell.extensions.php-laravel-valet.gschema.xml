@@ -19,7 +19,12 @@
         <key type="b" name="shorten-php-version">
             <default>false</default>
             <summary>Shorten PHP Version in Top Bar</summary>
-            <description>Whether shorten the displayed PHP version in the  Ubuntu top bar</description>
+            <description>Whether shorten the displayed PHP version in the Ubuntu top bar.</description>
+        </key>
+        <key type="b" name="show-links">
+            <default>true</default>
+            <summary>Show Links in Top Bar</summary>
+            <description>Whether shorten the Valet linked sites in the top bar.</description>
         </key>
     </schema>
 </schemalist>

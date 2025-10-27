@@ -32,10 +32,18 @@ export default class PhpLaravelValetPreferences extends ExtensionPreferences {
         });
         group.add(shorten_php_version);
 
+        // create a new preferences row
+        const show_links = new Adw.SwitchRow({
+            title: _('Display Links in Top Bar'),
+            subtitle: _('Show Valet linked sites in the top bar.'),
+        });
+        group.add(show_links);
+
         // create a settings object and bind inputs
         window._settings = this.getSettings();
         window._settings.bind('show-settings', show_settings, 'active', Gio.SettingsBindFlags.DEFAULT);
         window._settings.bind('shorten-php-version', shorten_php_version, 'active', Gio.SettingsBindFlags.DEFAULT);
+        window._settings.bind('show-links', show_links, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         window.set_default_size(620, 300);
     }
