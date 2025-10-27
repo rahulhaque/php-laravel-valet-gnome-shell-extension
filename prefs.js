@@ -23,7 +23,7 @@ export default class PhpLaravelValetPreferences extends ExtensionPreferences {
         const booleanRows = {
             'shorten-php-version': {
                 title: _('Shorten PHP'),
-                subtitle: _('Shortens the displayed PHP version in the Ubuntu top bar, showing 8.4 instead of 8.4.13 for a cleaner appearance.'),
+                subtitle: _('Shortens the displayed PHP version in the top bar, showing 8.4 instead of 8.4.13 for a cleaner appearance.'),
             },
             'show-status': {
                 title: _('Show Status'),
