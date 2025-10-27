@@ -14,6 +14,11 @@ export function shellSpawn(cmd) {
     GLib.spawn_command_line_async(`${terminal} ${cmd}`)
 }
 
+/**
+ * Retrieves and parses the output of `php -v`.
+ *
+ * @return {null|string}
+ */
 export function phpVersion() {
     const res = safeSpawn('/bin/bash -c "php -v | grep -Po \'PHP\\s+\\d+.\\d+(?:(.\\d+))?\'"')
 
@@ -21,9 +26,14 @@ export function phpVersion() {
         return String.fromCharCode(...res[1]).replace(/\n$/, '')
     }
 
-    return false
+    return null
 }
 
+/**
+ * Retrieves and parses the output of `ls /etc/php`.
+ *
+ * @return {string[]}
+ */
 export function phpList() {
     const res = safeSpawn('ls /etc/php')
 
@@ -31,7 +41,7 @@ export function phpList() {
         return String.fromCharCode(...res[1]).split('\n').filter(item => !!item).reverse()
     }
 
-    return false
+    return []
 }
 
 /**
@@ -62,6 +72,11 @@ export function valetList() {
     return []
 }
 
+/**
+ * Retrieves and parses the output of `valet status`.
+ *
+ * @return {string[]}
+ */
 export function valetStatus() {
     const res = safeSpawn('/bin/bash -c "valet --version && valet status"')
 
@@ -69,7 +84,7 @@ export function valetStatus() {
         return String.fromCharCode(...res[1]).split('\n').filter(item => !!item)
     }
 
-    return false
+    return []
 }
 
 export function valetRestart() {

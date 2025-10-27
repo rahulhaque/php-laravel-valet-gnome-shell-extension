@@ -9,6 +9,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js'
 import * as Utils from './utils.js'
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
+import {phpVersion} from './utils.js'
 
 const PhpLaravelValet = GObject.registerClass(
     class PhpLaravelValet extends PanelMenu.Button {
@@ -39,6 +40,7 @@ const PhpLaravelValet = GObject.registerClass(
 
         _refreshIndicator() {
             const phpVersion = Utils.phpVersion()
+
             if (phpVersion) {
                 this._settings.get_boolean('shorten-php-version') ?
                     this._indicatorText.set_text(phpVersion.replace(/^(\D*\d+\.\d+).*/, '$1')) :
@@ -53,6 +55,7 @@ const PhpLaravelValet = GObject.registerClass(
 
             // valet status menu
             const valetStatus = Utils.valetStatus()
+
             if (valetStatus.length > 0) {
                 valetStatus.forEach(item => {
                     this.menu.addMenuItem(new PopupMenu.PopupMenuItem(item.replace(/\.\.\./g, '')))
@@ -67,6 +70,7 @@ const PhpLaravelValet = GObject.registerClass(
             // switch php sub menu
             const phpSubMenu = new PopupMenu.PopupSubMenuMenuItem(_('Switch PHP'))
             const phpList = Utils.phpList()
+
             if (phpList.length > 0) {
                 phpList.forEach(item => {
                     const subMenu = new PopupMenu.PopupMenuItem(_('Switch to ') + item)
@@ -90,7 +94,6 @@ const PhpLaravelValet = GObject.registerClass(
 
             if (this._settings.get_boolean('show-links')) {
                 const valetLinks = Utils.valetList()
-                // log(`Valet links → ${JSON.stringify(valetLinks)}`)
 
                 if (valetLinks.length > 0) {
                     // menu separator
