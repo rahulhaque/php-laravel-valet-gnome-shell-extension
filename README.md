@@ -3,13 +3,12 @@
 A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) for GNOME Shell.
 
 ![Screenshot](./screenshot.png)  
-![Screenshot2](./screenshot2.png)
 
 ## Supports
 
 |Extension Version|Gnome Shell Version|
 |:-:|:-:|
-|8|46|
+|9|46|
 |7|45|
 |5|44, 43, 42, 41, 40|
 
@@ -21,7 +20,7 @@ A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) 
 
 - Install this extension from [extensions.gnome.org](https://extensions.gnome.org/extension/4985/php-laravel-valet).
 
-### Or
+## Manual Installation
 
 - Download the zip from the source. 
 - Create a folder named `php-laravel-valet@rahulhaque` under `~/.local/share/gnome-shell-extensions` folder and extract all the files in this repo.

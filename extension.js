@@ -3,13 +3,12 @@ import Gio from 'gi://Gio'
 import St from 'gi://St'
 import Clutter from 'gi://Clutter'
 
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js'
+import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js'
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js'
 import * as Utils from './utils.js'
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
-import {phpVersion} from './utils.js'
 
 const PhpLaravelValet = GObject.registerClass(
     class PhpLaravelValet extends PanelMenu.Button {
@@ -155,8 +154,7 @@ const PhpLaravelValet = GObject.registerClass(
             return state
         }
 
-        menuSection3()
-        {
+        menuSection3() {
             if (! this.shouldShowMenuSection3()) {
                 return
             }
