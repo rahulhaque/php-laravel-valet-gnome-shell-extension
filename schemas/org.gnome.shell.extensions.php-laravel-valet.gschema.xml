@@ -15,6 +15,36 @@
             <default>true</default>
             <summary>Show the settings button</summary>
             <description>Whether to show the settings button as last entry in the extensions list.</description>
-          </key>
+        </key>
+        <key type="b" name="shorten-php-version">
+            <default>false</default>
+            <summary>Shorten PHP Version in Top Bar</summary>
+            <description>Whether shorten the displayed PHP version in the Ubuntu top bar.</description>
+        </key>
+        <key type="b" name="show-links">
+            <default>true</default>
+            <summary>Show Links in Top Bar</summary>
+            <description>Whether show all Valet sites as clickable links.</description>
+        </key>
+        <key type="b" name="show-status">
+            <default>true</default>
+            <summary>Show Status</summary>
+            <description>Whether to the formatted Valet version and status output.</description>
+        </key>
+        <key type="b" name="show-php-switcher">
+            <default>true</default>
+            <summary>Show PHP Switcher</summary>
+            <description>Whether to the PHP Switcher.</description>
+        </key>
+        <key type="b" name="show-valet-restart">
+            <default>true</default>
+            <summary>Show Valet Start/Restart</summary>
+            <description>Whether to the option to start or restart Valet.</description>
+        </key>
+        <key type="b" name="show-valet-stop">
+            <default>true</default>
+            <summary>Show Valet Stop</summary>
+            <description>Whether to the option to stop Valet.</description>
+        </key>
     </schema>
 </schemalist>
