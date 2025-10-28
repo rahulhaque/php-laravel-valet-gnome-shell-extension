@@ -2,7 +2,7 @@
 
 A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) for GNOME Shell.
 
-![Screenshot](./screenshot.png)  
+![Screenshot](./screenshot.png)
 
 ## Supports
 
@@ -22,10 +22,17 @@ A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) 
 
 ## Manual Installation
 
-- Download the zip from the source. 
+- Download the zip from the source.
 - Create a folder named `php-laravel-valet@rahulhaque` under `~/.local/share/gnome-shell-extensions` folder and extract all the files in this repo.
 - Restart GNOME Shell with **[ALT]** + **[F2]**. Type '**r**' and **[Enter]**
 - Or logout and log back in.
+
+## Contributing
+
+- Fork the branch you want to update and create pull request directly for it.
+- Name your branch according to the changes or feature it will introduce.
+- Default branch will be updated with latest gnome shell release.
+- For major gnome shell version upgrade, target dev branch.
 
 ## Credits
 
