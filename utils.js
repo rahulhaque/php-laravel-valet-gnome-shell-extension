@@ -4,7 +4,7 @@ export function safeSpawn(cmd) {
     try {
         return GLib.spawn_command_line_sync(cmd)
     } catch (e) {
-        return [false, new Uint8Array(0), null, null]
+        return [false, new Uint8Array(0), new Uint8Array(0), -1]
     }
 }
 
