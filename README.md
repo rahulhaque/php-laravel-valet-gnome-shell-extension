@@ -14,7 +14,7 @@ A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) 
 
 ## Prerequisite
 
-- Properly installed and running [Laravel Valet Linux](https://cpriego.github.io/valet-linux/).
+- Properly installed and running [Laravel Valet Linux](https://cpriego.github.io/valet-linux/) or [Valet Linux Plus](https://github.com/valet-linux-plus/valet-linux-plus).
 
 ## Installation
 
