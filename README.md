@@ -8,7 +8,7 @@ A PHP Laravel Valet status indicator and manager extension (GNOME Panel Applet) 
 
 |Extension Version|Gnome Shell Version|
 |:-:|:-:|
-|11|46, 47, 48, 49, 50|
+|12|46, 47, 48, 49, 50|
 |7|45|
 |5|40, 41, 42, 43, 44|
 
